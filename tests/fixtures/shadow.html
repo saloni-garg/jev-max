@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head><title>jev-max fixture</title></head>
+<body>
+  <h1>Fixture page</h1>
+  <p id="result">waiting...</p>
+
+  <!-- open shadow root with a form inside -->
+  <user-card id="card"></user-card>
+  <script>
+    const host = document.getElementById('card');
+    const shadow = host.attachShadow({ mode: 'open' });
+    shadow.innerHTML = `
+      <style>form { border: 1px solid #ccc; padding: 12px; }</style>
+      <form id="greet">
+        <label>Name <input id="name" type="text" placeholder="your name"></label>
+        <button type="submit">Greet</button>
+      </form>`;
+    shadow.getElementById('greet').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const v = shadow.getElementById('name').value;
+      document.getElementById('result').textContent = 'Hello, ' + v;
+    });
+  </script>
+
+  <!-- same-origin iframe via srcdoc (pierceable) -->
+  <iframe id="embed" title="confirm frame" srcdoc="
+    <!DOCTYPE html><button id='confirm'>Confirm inside frame</button>
+    <script>
+      document.getElementById('confirm').addEventListener('click', () => {
+        parent.document.title = 'confirmed by frame';
+      });
+    </script>
+  "></iframe>
+
+  <!-- canvas region for the visual fallback path -->
+  <canvas id="board" width="300" height="120" style="border:1px solid #999"></canvas>
+  <script>
+    const c = document.getElementById('board').getContext('2d');
+    c.fillStyle = '#eee'; c.fillRect(0, 0, 300, 120);
+    c.fillStyle = '#06c'; c.fillRect(90, 35, 120, 50);
+    c.fillStyle = '#fff'; c.font = '16px sans-serif';
+    c.fillText('Canvas button', 105, 65);
+    document.getElementById('board').addEventListener('click', (e) => {
+      const r = e.target.getBoundingClientRect();
+      const x = e.clientX - r.left, y = e.clientY - r.top;
+      if (x > 90 && x < 210 && y > 35 && y < 85) document.title = 'canvas clicked';
+    });
+  </script>
+</body>
+</html>

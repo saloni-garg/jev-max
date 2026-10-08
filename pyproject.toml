@@ -1,0 +1,40 @@
+[project]
+name = "jev-max"
+version = "0.1.0"
+description = "The Jev browser agent that handles the real web: shadow DOM, iframes, canvas, uploads, multi-tab. Fast, cheap, agent-agnostic."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [{ name = "Saloni Garg" }]
+keywords = ["browser", "agent", "jev", "typesafe", "playwright", "mcp", "automation"]
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+]
+dependencies = [
+  "playwright>=1.40",
+  "httpx>=0.27",
+  "mcp>=1.0",
+  "pyyaml>=6.0",
+  "rich>=13.0",
+  "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "ruff>=0.4"]
+
+[project.scripts]
+jev-max = "jev_max.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["jev_max"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

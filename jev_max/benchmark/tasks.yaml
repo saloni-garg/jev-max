@@ -1,0 +1,22 @@
+# jev-max benchmark tasks. `make check` style assertions against the final page.
+# check types: text_contains | title_contains | url_contains
+tasks:
+  - id: shadow-fill
+    url: "file://FIXTURE_DIR/shadow.html"
+    goal: "Type the name Ada into the name field inside the shadow-DOM user card, then submit the form."
+    check: { type: text_contains, value: "Hello, Ada" }
+
+  - id: iframe-click
+    url: "file://FIXTURE_DIR/shadow.html"
+    goal: "Click the Confirm button inside the embedded frame."
+    check: { type: title_contains, value: "confirmed by frame" }
+
+  - id: wiki-godel
+    url: "https://en.wikipedia.org/wiki/Main_Page"
+    goal: "Find and open the Wikipedia article about Godel's incompleteness theorems."
+    check: { type: url_contains, value: "ncompleteness" }
+
+  - id: ddg-search
+    url: "https://duckduckgo.com"
+    goal: "Search for 'TypeSafe Jev browser agent' and open the first result."
+    check: { type: text_contains, value: "Jev" }
