@@ -10,8 +10,6 @@ Jev (TypeSafe's System One model) made browser agents ~10x faster and ~100x chea
 
 jev-max keeps the speed and knocks the walls down:
 
-![jev-max filling a shadow-DOM form and clicking inside an iframe](assets/demo.gif)
-
 - **Piercing snapshot** — walks open shadow roots and same-origin iframes into one indexed element table. Cross-origin frames are recorded as regions instead of silently dropped.
 - **Canvas fallback** — when the table has no usable target, a vision model grounds the instruction to coordinates and the real mouse clicks.
 - **Full action space** — uploads, drag-and-drop, multi-tab, nested scroll, native selects with option lists.
